@@ -38,7 +38,16 @@ Of course, language does not matter so long as your =outline-mode= variables are
 #+begin_org
 #+transclude: [[./example.lisp]] :src lisp :heading "Initial"
 #+end_org
-#+transclude: [[./example.lisp]]  :src lisp :heading "Initial"  :src lisp
+#+begin_src lisp
+;;; * Initial
+
+(defclass example ()
+  ((attr
+    :initarg :x
+    :accessor attr
+    :initform 10)))
+
+#+end_src
 
 
 # Local Variables:
