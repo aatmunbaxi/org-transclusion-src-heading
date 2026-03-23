@@ -2,11 +2,19 @@
 
 Here we did some silly arbitrary stuff to demonstrate the ability of =org-transclusion-src-heading=.
 
+
 For example, if we are building a python class and wanted to explain the details of it, we could give some commentary on the overview of the whole class:
-#+transclude: [[file:./example.py]]  :src python :heading "class"  :src python
+#+transclude: [[./example.py]]  :src python :heading "class"  :src python
 
 And here we expound on the very interesting data associated to the class =Example=. As you can see, it is quite a complicated object, and not for the faint of heart.
-#+transclude: [[file:./example.py]]  :src python :heading "example class data"  :src python
-
+#+transclude: [[./example.py]]  :src python :heading "example class data"  :src python
 Now here is the main contribution to the world, we are able to do fantastic computations with OOP such as initialization of constant functions:
-#+transclude: [[file:./example.py]]  :src python :heading "function"  :src python
+#+transclude: [[./example.py]]  :src python :heading "function"  :src python
+
+
+# Local Variables:
+# outline-regexp: "\\# \\*+ "
+# outline-heading-alist: (("# \\* " . 1) ("# \\*\\* " . 2) ("# \\*\\*\\* " . 3) ("# \\*\\*\\*\\* " . 4))
+# End:
+#+end_src
+

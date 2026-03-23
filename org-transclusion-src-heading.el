@@ -123,17 +123,6 @@ Return nil if PLIST does not contain \":heading\" or \":src\" properties."
         (counter 0))
     (save-excursion
       (goto-char pos)
-      ;; (while (and (< counter BOUNDS)
-      ;;             (not found)
-      ;;             (eq lino (line-number-at-pos)))
-      ;;   ;; (when (looking-at name)
-      ;;   ;;   (setq found t))
-      ;;   (when (string-match )
-      ;;     (setq found t))
-      ;;   (when (< counter BOUNDS)
-      ;;     (forward-char))
-      ;;   (setq counter (1+ counter)))
-      
       (when (looking-at outline-regexp)
         (goto-char (match-end 0))
         (when
