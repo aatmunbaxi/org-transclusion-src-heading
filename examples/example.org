@@ -1,15 +1,44 @@
 #+title: org-transclusion-src-heading example literate file
 
+Note: the blocks transcluded here are detached from their origin, as =org-transclusion= relies on overlays to display the content of the source files.
+Your actual org file will not have the contents of the block inserted into the file until you detach them from the source file.
+I've included the directive that produces blocks you see.
+
 Here we did some silly arbitrary stuff to demonstrate the ability of =org-transclusion-src-heading=.
-
-
 For example, if we are building a python class and wanted to explain the details of it, we could give some commentary on the overview of the whole class:
-#+transclude: [[./example.py]]  :src python :heading "class"  :src python
+#+begin_org
+#+transclude: [[./example.py]] :src python :heading "class"
+#+end_org
+#+begin_src python
+# * class 
+
+class Example:
+
+# ** example class data 
+    attr1 = 10
+
+# ** example class functions
+    def __init__(self,num):
+        attr1 = num
+
+#+end_src
 
 And here we expound on the very interesting data associated to the class =Example=. As you can see, it is quite a complicated object, and not for the faint of heart.
-#+transclude: [[./example.py]]  :src python :heading "example class data"  :src python
-Now here is the main contribution to the world, we are able to do fantastic computations with OOP such as initialization of constant functions:
-#+transclude: [[./example.py]]  :src python :heading "function"  :src python
+#+begin_org
+#+transclude: [[./example.py]] :src python :heading "example class data"
+#+end_org
+#+begin_src python
+# ** example class data 
+    attr1 = 10
+
+#+end_src
+
+Of course, language does not matter so long as your =outline-mode= variables are properly set.
+
+#+begin_org
+#+transclude: [[./example.lisp]] :src lisp :heading "Initial"
+#+end_org
+#+transclude: [[./example.lisp]]  :src lisp :heading "Initial"  :src lisp
 
 
 # Local Variables:
