@@ -95,7 +95,6 @@ abnormal hook
 Determine add function based on LINK and PLIST.
 
 Return nil if PLIST does not contain \":heading\" or \":src\" properties."
-  (message "Entered org-transclusion-add-src-heading, %s" plist)
 
   (cond
    ((and (plist-get plist :heading)
