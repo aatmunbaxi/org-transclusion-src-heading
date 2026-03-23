@@ -1,0 +1,58 @@
+#+title: org-transclusion-src-heading: Extension for org-transclusion for outline-mode headings
+
+* Motivation
+Highly volatile source files (such as configuration files) make [[https:github.com/nobiot/org-transclusion][org-transclusion's]] line-based transclusion brittle.
+
+I wanted to include some specific sections (but not all!) of my emacs configuration with added commentary on my website, which is deployed with org-mode. I moved away from a literate configuration a long time ago, but missed the nice formatting and publishing capabilities of org-mode. Because my configuration is constantly evolving, the line-based transclusion included in the package would be liable to break if I added/subtracted the configuration or refactored it.
+
+I chose to extend org-transclusion to use a minimal outline-mode based organization of the source file to pull sections into the transclusion with a new =:heading= keyword to the =#+transclude:= directive.
+This will pull in the all the text of a specific heading level from your source file into code block.
+* Installation
+This package is not on MELPA, but many emacs users use package managers with installation from version control systems such as elpaca and straight. Refer to your package manager's documentation to see how this is done.
+
+Those not using such a package manager can clone the repository locally and use =use-package= with the =:load-path= keyword pointing to where the repository is cloned.
+
+Once installed, you must make org-transclusion aware of the extension after it is loaded by placing this line somewhere in your configuration.
+#+begin_src emacs-lisp
+(org-transclusion-set-extensions
+   'org-transclusion-extensions
+   (add-to-list 'org-transclusion-extensions #'org-transclusion-src-heading))
+#+end_src
+This will insert the src-heading functions into the org-transclusion pipeline.
+* Usage
+To begin transcluding, you need 3 variables set and working: =outline-regexp=, =outline-heading-alist=, and =outline-heading=.
+We follow the recommendation of the emacs manual that the first two should be set as a buffer-local variable.
+As a note, =outline-heading= should be able to correctly calculate the level of your headings.
+Here is an example snippet for =emacs-lisp-mode= that would use =;;; *= for heading level 1, =;;; **= for heading level 2, etc.
+#+begin_src emacs-lisp
+
+;;; * fibonacci
+(defun fib (n)
+  (cond ((eq n 0) 1)
+         ((eq n 1) 1)
+         (t (+ (fib (1- n)) (fib (- n 2))))))
+
+;;; ** subheading
+(message "%s" 'foobar)
+;;; * ising
+(message "%s" 'super!)
+
+;; Local Variables:
+;; outline-regexp: ";;; \\*+ "
+;; outline-heading-alist: ((";;; \\* " . 1) (";;; \\*\\* " . 2) (";;; \\*\\*\\* " . 3) (";;; \\*\\*\\*\\*" . 4))
+;; End:
+
+#+end_src
+My recommendation is to follow this pattern: identify the single-line comment syntax in your source language, and build asterisks to denote the heading level.
+
+Once these are set, you can transclude into an org file like so:
+#+begin_src org
+#+transclude: [[file:/path/to/src-file]] :src [src-language] :heading "[heading name]"
+#+end_src
+
+For our elisp example, we could transclude the first level 1 heading with
+#+begin_src org
+#+transclude: [[file:/path/to/src-file]] :src emacs-lisp :heading "fibonacci"
+#+end_src
+
+See =examples/= for more examples.
