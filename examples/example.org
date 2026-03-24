@@ -49,10 +49,16 @@ Of course, language does not matter so long as your =outline-mode= variables are
 
 #+end_src
 
+#+begin_org
+#+transclude: [[./example.lisp]]  :src lisp :heading "Function"  :src lisp
+#+end_org
+#+begin_src lisp
+;;; * Function
 
-# Local Variables:
-# outline-regexp: "\\# \\*+ "
-# outline-heading-alist: (("# \\* " . 1) ("# \\*\\* " . 2) ("# \\*\\*\\* " . 3) ("# \\*\\*\\*\\* " . 4))
-# End:
+(defun getter ()
+  (setf x (make-instance 'example :x 3))
+  (attr x))
+
+
 #+end_src
 
