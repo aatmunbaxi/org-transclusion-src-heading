@@ -31,9 +31,33 @@
 
 ;;; Code:
 
-;;; * Minor mode and adding functions
 (require 'org-transclusion)
 (require 'org)
+
+;;; * Variables:
+(defcustom org-transclusion-src-heading-name-capture-group
+  0
+  "Number of which capture group in `outline-regexp' to match for heading
+names. 0 matches all of `outline-regexp'.
+
+For example, with this variable set to 2 in `emacs-lisp-mode' and
+`outline-regexp' set to \";;; \\(\\*+\\) \\(.*\\)\", the package will match
+\"foo\" in the heading \";;; ** foo\" when looking for heading names."
+  :type 'natnum)
+
+(defcustom org-transclusion-src-heading-level-capture-group
+  0
+  "Number of which capture group in `outline-regexp' to match for heading
+level. 0 matches all of `outline-regexp'.
+
+For example, with this variable set to 1 in `emacs-lisp-mode' and
+`outline-regexp' set to \";;; \\(\\*+\\) \\(.*\\)\", the package will determine
+level 2 in the heading \";;; ** foo\" when looking for heading names."
+  :type 'natnum)
+
+;;; Functions
+;;; * Minor mode and adding functions
+
 ;;;###autoload
 (define-minor-mode org-transclusion-src-heading-mode ()
   :lighter nil
@@ -122,10 +146,14 @@ Return nil if PLIST does not contain \":heading\" or \":src\" properties."
         (counter 0))
     (save-excursion
       (goto-char pos)
-      (when (looking-at outline-regexp)
-        (goto-char (match-end 0))
-        (when
-            (looking-at name)
+      (when-let* ((_ (looking-at outline-regexp))
+                  (name-start (match-beginning
+                                       org-transclusion-src-heading-name-capture-group))
+                  (name-end (match-end
+                                       org-transclusion-src-heading-name-capture-group))
+                  (heading-name
+                   (buffer-substring-no-properties name-start name-end)))
+        (when (equal name heading-name)
           (setq found t))))
     found))
 
@@ -231,6 +259,6 @@ It needs to be set in
 ;;; org-transclusion-src-heading.el ends here
 
 ;; Local Variables:
-;; outline-regexp: ";;; \\*+ "
+;; outline-regexp: ";;; \\(\\*+\\) \\(.*\\) "
 ;; outline-heading-alist: ((";;; \\*\\*\\*\\* " . 1) (";;; \\*\\*\\* " . 2) (";;; \\*\\* " . 3) (";;; \\* " . 4))
 ;; End:
