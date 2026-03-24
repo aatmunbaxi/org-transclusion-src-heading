@@ -9,6 +9,8 @@ For example, if we are building a python class and wanted to explain the details
 #+begin_example
 #+transclude: [[./example.py]] :src python :heading "class"
 #+end_example
+
+
 #+begin_src python
 # * class 
 
@@ -23,10 +25,10 @@ class Example:
 
 #+end_src
 
-And here we expound on the very interesting data associated to the class =Example=. As you can see, it is quite a complicated object, and not for the faint of heart.
 #+begin_example
 #+transclude: [[./example.py]] :src python :heading "example class data"
 #+end_example
+
 #+begin_src python
 # ** example class data 
     attr1 = 10
