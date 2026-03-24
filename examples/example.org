@@ -6,7 +6,7 @@ I've included the directive that produces blocks you see.
 
 Here we did some silly arbitrary stuff to demonstrate the ability of =org-transclusion-src-heading=.
 For example, if we are building a python class and wanted to explain the details of it, we could give some commentary on the overview of the whole class:
-#+begin_org
+#+begin_example
 #+transclude: [[./example.py]] :src python :heading "class"
 #+end_org
 #+begin_src python
@@ -24,7 +24,7 @@ class Example:
 #+end_src
 
 And here we expound on the very interesting data associated to the class =Example=. As you can see, it is quite a complicated object, and not for the faint of heart.
-#+begin_org
+#+begin_example
 #+transclude: [[./example.py]] :src python :heading "example class data"
 #+end_org
 #+begin_src python
@@ -35,7 +35,7 @@ And here we expound on the very interesting data associated to the class =Exampl
 
 Of course, language does not matter so long as your =outline-mode= variables are properly set.
 
-#+begin_org
+#+begin_example
 #+transclude: [[./example.lisp]] :src lisp :heading "Initial"
 #+end_org
 #+begin_src lisp
@@ -49,9 +49,9 @@ Of course, language does not matter so long as your =outline-mode= variables are
 
 #+end_src
 
-#+begin_org
+#+begin_example
 #+transclude: [[./example.lisp]]  :src lisp :heading "Function"  :src lisp
-#+end_org
+#+end_example
 #+begin_src lisp
 ;;; * Function
 
