@@ -20,12 +20,46 @@ Once installed, you must make org-transclusion aware of the extension after it i
 #+end_src
 This will insert the src-heading functions into the org-transclusion pipeline.
 * Usage
-To begin transcluding, you need 3 variables set and working: =outline-regexp=, =outline-heading-alist=, and =outline-heading=.
+*** Basic Usage
+To begin transcluding, you really only need the variable =outline-regexp= set in such a way that the characters that determine the level of the outline is matched in capture group number =org-transclusion-src-heading-level-capture-group= and the name of the heading is matched in the group =org-transclusion-src-heading-name-capture-group=.
+This is needed to accommodate source languages where single line comments are wrapped in 
+
 We follow the recommendation of the emacs manual that the first two should be set as a buffer-local variable.
 As a note, =outline-heading= should be able to correctly calculate the level of your headings.
 Here is an example snippet for =emacs-lisp-mode= that would use =;;; *= for heading level 1, =;;; **= for heading level 2, etc.
-#+begin_src emacs-lisp
 
+*** Batteries-included config example
+I provide my own configuration and steps to proceed based on it.
+#+begin_src emacs-lisp
+(use-package org-transclusion-src-heading
+  :config
+  ;; Convention: all my buffer-local outline-regexps
+  ;; will capture stars to group 1 and the heading name
+  ;; to group 2. Design them for your source buffer accordingly
+  (setopt org-transclusion-src-heading-level-capture-group 1
+          org-transclusion-src-heading-name-capture-group 2)
+
+  (defun my/outline-level ()
+    "Determine outline level assuming
+`outline-regexp' captures asterisks into
+`org-transclusion-src-heading-level-capture-group'."
+    (if  (looking-at outline-regexp)
+        (length (match-string org-transclusion-src-heading-level-capture-group))
+      0))
+  ;; Universally use this function to determine outline headings
+  (add-hook! 'prog-mode-hook :local (setq outline-level #'my/outline-level)))
+#+end_src
+To begin transcluding for a new source language, do the following:
+
+1. Enter source buffer and run =add-file-local-variable=
+2. Set =outline-regexp= to a regex that captures heading level characters (like =*=) to capture group 1
+   and the heading name to capture group 2
+3. (Optional) Hook this =outline-regexp= value to the major mode to avoid repetition of file local vars
+4. Done. You may transclude headings now
+*** Example with example config
+If you properly capture your asterisks for heading levels, you should write your own function for =outline-level= to compute the outline levels (see below).
+
+#+begin_src emacs-lisp
 ;;; * fibonacci
 (defun fib (n)
   (cond ((eq n 0) 1)
@@ -38,12 +72,10 @@ Here is an example snippet for =emacs-lisp-mode= that would use =;;; *= for head
 (message "%s" 'super!)
 
 ;; Local Variables:
-;; outline-regexp: ";;; \\*+ "
-;; outline-heading-alist: ((";;; \\* " . 1) (";;; \\*\\* " . 2) (";;; \\*\\*\\* " . 3) (";;; \\*\\*\\*\\*" . 4))
+;; outline-regexp: ";;; \\(\\*+\\) \\(.*\\)$"
 ;; End:
 
 #+end_src
-My recommendation is to follow this pattern: identify the single-line comment syntax in your source language, and build asterisks to denote the heading level.
 
 Once these are set, you can transclude into an org file like so:
 #+begin_src org
