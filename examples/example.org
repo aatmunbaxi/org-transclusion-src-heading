@@ -8,7 +8,7 @@ Here we did some silly arbitrary stuff to demonstrate the ability of =org-transc
 For example, if we are building a python class and wanted to explain the details of it, we could give some commentary on the overview of the whole class:
 #+begin_example
 #+transclude: [[./example.py]] :src python :heading "class"
-#+end_org
+#+end_example
 #+begin_src python
 # * class 
 
@@ -26,7 +26,7 @@ class Example:
 And here we expound on the very interesting data associated to the class =Example=. As you can see, it is quite a complicated object, and not for the faint of heart.
 #+begin_example
 #+transclude: [[./example.py]] :src python :heading "example class data"
-#+end_org
+#+end_example
 #+begin_src python
 # ** example class data 
     attr1 = 10
@@ -37,7 +37,8 @@ Of course, language does not matter so long as your =outline-mode= variables are
 
 #+begin_example
 #+transclude: [[./example.lisp]] :src lisp :heading "Initial"
-#+end_org
+#+end_example
+
 #+begin_src lisp
 ;;; * Initial
 
