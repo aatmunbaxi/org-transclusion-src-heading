@@ -18,7 +18,5 @@
 ;;; * End
 
 ;; Local Variables:
-;; outline-regexp: ";;; \\*+ "
-;; outline-heading-alist: ((";;; \\* " . 1) (";;; \\*\\* " . 2) (";;; \\*\\*\\* " . 3) (";;; \\*\\*\\*\\* " . 4))
-;; outline-level: #'my/outline-level
+;; outline-regexp: ";;; \\(\\*+\\) \\(.*\\)"
 ;; End:
