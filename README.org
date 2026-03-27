@@ -57,7 +57,6 @@ To begin transcluding for a new source language, do the following:
 3. (Optional) Hook this =outline-regexp= value to the major mode to avoid repetition of file local vars
 4. Done. You may transclude headings now
 *** Example with example config
-If you properly capture your asterisks for heading levels, you should write your own function for =outline-level= to compute the outline levels (see below).
 
 #+begin_src emacs-lisp
 ;;; * fibonacci
@@ -77,7 +76,6 @@ If you properly capture your asterisks for heading levels, you should write your
 
 #+end_src
 
-Once these are set, you can transclude into an org file like so:
 #+begin_src org
 #+transclude: [[file:/path/to/src-file]] :src [src-language] :heading "[heading name]"
 #+end_src
