@@ -26,7 +26,7 @@ This is needed to accommodate source languages where single line comments are wr
 
 We follow the recommendation of the emacs manual that the first two should be set as a buffer-local variable.
 As a note, =outline-heading= should be able to correctly calculate the level of your headings.
-Here is an example snippet for =emacs-lisp-mode= that would use =;;; *= for heading level 1, =;;; **= for heading level 2, etc.
+This likely means you will have to write your own (see below for mine).
 
 *** Batteries-included config example
 I provide my own configuration and steps to proceed based on it.
