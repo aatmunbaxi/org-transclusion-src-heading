@@ -16,7 +16,7 @@ Once installed, you must make org-transclusion aware of the extension after it i
 #+begin_src emacs-lisp
 (org-transclusion-set-extensions
    'org-transclusion-extensions
-   (add-to-list 'org-transclusion-extensions #'org-transclusion-src-heading))
+   (add-to-list 'org-transclusion-extensions 'org-transclusion-src-heading))
 #+end_src
 This will insert the src-heading functions into the org-transclusion pipeline.
 * Usage
@@ -47,7 +47,7 @@ I provide my own configuration and steps to proceed based on it.
         (length (match-string org-transclusion-src-heading-level-capture-group))
       0))
   ;; Universally use this function to determine outline headings
-  (add-hook! 'prog-mode-hook :local (setq outline-level #'my/outline-level)))
+  (add-hook 'prog-mode-hook :local (setq outline-level #'my/outline-level)))
 #+end_src
 To begin transcluding for a new source language, do the following:
 
