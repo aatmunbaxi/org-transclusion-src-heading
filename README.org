@@ -1,7 +1,7 @@
 #+title: org-transclusion-src-heading: Transclusion for outline-mode headings
 [[./org-transclusion-src-heading.png]]
 * Motivation
-Highly volatile source files (such as configuration files) make [[https:github.com/nobiot/org-transclusion][org-transclusion's]] line-based transclusion brittle.
+Highly volatile source files (such as configuration files) make [[https://github.com/nobiot/org-transclusion][org-transclusion]]'s' line-based transclusion brittle.
 
 I wanted to include some specific sections (but not all!) of my emacs configuration with added commentary on my website, which is deployed with org-mode. I moved away from a literate configuration a long time ago, but missed the nice formatting and publishing capabilities of org-mode. Because my configuration is constantly evolving, the line-based transclusion included in the package would be liable to break if I added/subtracted the configuration or refactored it.
 
