@@ -1,5 +1,5 @@
-#+title: org-transclusion-src-heading: Extension for org-transclusion for outline-mode headings
-
+#+title: org-transclusion-src-heading: Transclusion for outline-mode headings
+[[./org-transclusion-src-heading.png]]
 * Motivation
 Highly volatile source files (such as configuration files) make [[https:github.com/nobiot/org-transclusion][org-transclusion's]] line-based transclusion brittle.
 
